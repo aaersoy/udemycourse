@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{css/profile.css}"/>
+</head>
+<body>
+<table>
+    <tr>
+        <td> Full Name : </td>
+        <td th:text="|You are ${model.title} ${model.firstName} ${#strings.toUpperCase(model.lastName)}, and you are most welcome|"></td>
+    </tr>
+    <tr>
+        <td>Date of Birth:</td>
+        <td th:utext="${#dates.format(model.dateOfBirth,'dd-MMM-yyyy')}" ></td>
+    </tr>
+    <tr>
+        <td> Description</td>
+        <td th:utext="${model.description}"></td>
+    </tr>
+</table>
+
+
+<h2>Spoken Languages</h2>
+<p>You speak <span th:text="${model.languages.size()>=3} ? '3 or more': ${model.languages.size()}"></span> languages.</p>
+<ul th:if="${model.languages.size() >=3 }">
+    <li th:each="language : ${model.languages}" th:text="${language}"></li>
+</ul>
+<p th:if="${model.languages.size() < 3 }">You speak <span th:each="language : ${model.languages}" th:text="${language} + ' '"></span></p>
+<p><a th:href="@{/}">Click here</a> to return homepage.</p>
+
+</body>
+</html>
